@@ -1,0 +1,2064 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Meta / SEO -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pizza Stack — Fresh, Hot & Delicious</title>
+  <meta name="description" content="Pizza Stack — Fresh, Hot & Delicious Pizza Delivered Fast. Burgers, pizzas, cold drinks, sandwiches." />
+  <link rel="icon" type="image/png" href="assets/icons/pizza-icon.png">
+
+  <!-- Optional Google Fonts (can remove if you want all-local) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+/* ============================================
+     *********GLOBAL STYLES********************
+=============================================== */
+:root {
+  --pd-red: #e63946;
+  --pd-yellow: #f1c40f;
+  --pd-bg: linear-gradient(90deg, #8b0000, #000);
+  --pd-text: black;
+  --pd-muted: #555555;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--pd-text);
+  background: var(--pd-bg);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: var(--pd-text);
+}
+/* =======================
+   Base Container
+======================= */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;   /* smaller side padding */
+  max-width: 1320px; /* default max for very large screens */
+}
+
+/* Breakpoints */
+@media (max-width: 575px) {
+  .container {
+    padding: 0 0px;   /* less padding for mobiles */
+    max-width: 100%;  /* full width */
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+
+/* ============================================
+   *************BRAND TITLE******************
+=============================================== */
+.brand-title {
+  font-family: "Playfair Display", serif;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #fff;
+  position: relative;
+}
+
+.brand-title span {
+  color: #FFD700;
+}
+
+.brand-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #FFD700;
+  margin: 4px auto 0;
+  border-radius: 4px;
+}
+
+/* =============================================
+   ****************** NAVBAR *******************
+=============================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: var(--pd-bg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.nav-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =============================================
+   **************** NAV LINKS ******************
+=============================================== */
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #FFD700;
+  font-weight: 700;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #FFD700;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links .close-side {
+  display: none;
+}
+
+
+/* ===============================================
+   ********************CART********************
+================================================ */
+.cart-wrapper {
+  position: relative;
+}
+
+.cart-btn {
+  background: #FFD700;
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cart-btn:hover {
+  background: #e6c200;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 280px;
+  padding: 16px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  z-index: 2000;
+}
+
+.cart-dropdown.active {
+  display: flex;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.close-cart {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.cart-total {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.order-msg {
+  font-size: 0.9rem;
+  color: green;
+}
+
+/* =============================================
+   ******************BUTTONS********************
+================================================ */
+.btn-red {
+  background: #B22222;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-red:hover {
+  background: #8B1A1A;
+}
+
+/* =====================================================
+   ********************BURGER MENU***********************
+========================================================= */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.burger .bar {
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.burger.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ====================================================
+   **********************RESPONSIVE********************
+======================================================= */
+@media (max-width: 768px) {
+  .nav-wrap {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+  }
+
+  .burger {
+    display: flex;
+    order: -2;
+  }
+
+  .brand-title {
+    order: -1;
+    font-size: 1.3rem;
+  }
+
+  .cart-wrapper {
+    margin-left: auto;
+    order: 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    width: 220px;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--pd-bg);
+    transition: left 0.3s ease;
+    z-index: 1500;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    width: 100%;
+  }
+
+  .nav-links .close-side {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2000;
+  }
+
+  .nav-links .close-side:hover {
+    color: #fcdd2d;
+  }
+}
+
+/* ========================================================
+   *************************HERO***************************
+========================================================== */
+.hero {
+  position: relative;
+  height: 90vh; /* ✅ full banner height for desktop */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.hero video,
+.hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero h1 span.white {
+  color: #fff;
+}
+
+.hero h1 span.red {
+  color: #B22222;
+}
+
+.hero h1 span.yellow {
+  color: #FFD54F;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #FFF8E1;
+}
+
+.btn-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-red {
+  background: #B22222;
+  color: #fff;
+}
+
+.btn-red:hover {
+  background: #8B1A1A;
+  transform: scale(1.05);
+}
+
+.btn-yellow {
+  background: #FFD54F;
+  color: #fff;
+}
+
+.btn-yellow:hover {
+  background: #e6b800;
+  color: #1C1C1C;
+  transform: scale(1.05);
+}
+
+/* ========================================================
+   ********************* RESPONSIVE ***********************
+========================================================== */
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh; /* ✅ shorter banner height on mobile */
+  }
+
+  .hero h1 {
+    font-size: 2rem; /* ✅ smaller text for mobile */
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+
+/* ===========================================================
+   ************************* HIGHLIGHTS ***********************
+============================================================= */
+.highlights {
+  background: #fff;
+  padding: 60px 20px;
+  border-radius: 20px;
+  margin: 40px 0;
+  max-width: 100%;
+  box-shadow: 0 6px 18px rgba(139, 0, 0, 0.25);
+}
+
+.highlights-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 12px;
+  color: var(--pd-red);
+  font-weight: 700;
+}
+
+.highlights-subtitle {
+  text-align: center;
+  color: #B22222;
+  margin-bottom: 40px;
+  font-size: 3rem;
+}
+
+.highlights-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.highlight-card {
+  flex: 1 1 250px;
+  background: whitesmoke;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(139, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 22px rgba(80, 0, 0, 0.6);
+}
+
+.highlight-card .icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #B22222;
+}
+
+/* Responsive Highlights */
+@media (max-width: 767px) {
+  .highlights-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .highlight-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ================================================================
+   **************************** ABOUT SECTION ***********************
+================================================================== */
+.about-section {
+  background: #fff;
+  padding: 60px 20px;
+  border-radius: 20px;
+  margin: 40px 0;
+  max-width: 100%;
+  box-shadow: 0 6px 18px rgba(139, 0, 0, 0.25);
+}
+
+.about-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--pd-red);
+  position: relative;
+}
+
+.about-subtitle {
+  text-align: center;
+  color: var(--pd-muted);
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+.about-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #FFD700;
+  margin: 8px auto 0;
+  border-radius: 4px;
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.about-card {
+  flex: 1 1 45%;
+  background: whitesmoke;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(80, 0, 0, 0.6);
+}
+
+.sub-heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #B22222;
+}
+
+.about-card p,
+.about-card ul {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #222;
+}
+
+.about-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-card ul li {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Responsive About */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+  .about-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* =======================================================
+   ********************* MENU SECTION *********************
+========================================================= */
+.section {
+  padding: 60px 0;
+}
+
+.display-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 12px;
+  color: var(--pd-red);
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--pd-muted);
+  margin-bottom: 40px;
+}
+
+.title-menu {
+  color: #B22222;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.img-box img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+.price {
+  color: var(--pd-yellow);
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+/* =============== Menu Pills (Horizontal & Grid on Mobile) =============== */
+.menu-inline {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;       
+  overflow-x: auto;        
+  padding-bottom: 6px;
+  scrollbar-width: none;  
+}
+
+.menu-inline::-webkit-scrollbar {
+  display: none;          
+}
+
+.menu-pill {
+  flex: 1 0 auto;         
+  min-width: 100px;       
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.menu-pill input {
+  margin-left: 8px;
+  cursor: pointer;
+  outline: none;      
+  border: none;      
+}
+
+
+.menu-pill:hover {
+  background: linear-gradient(135deg, red, rgb(32, 31, 31));
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.menu-pill input:checked {
+  accent-color: #5a0e15;  /* red (your theme color) */
+}
+
+
+.menu-pill.active {
+  background: linear-gradient(135deg, red, rgb(24, 23, 23));
+  color: #af1e1e;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateY(-1px);
+}
+
+.menu-pill span {
+  pointer-events: none;
+}
+
+
+.btn-reserve {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: 0.8rem 2rem;
+  background: #e63946;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-reserve:hover {
+  background: #ff4c4c;
+}
+
+/* =================================================
+   *************** RESPONSIVE DESIGN ****************
+=================================================== */
+@media (max-width: 900px) {
+  .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    text-align: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .menu-inline {
+    display: grid;  
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .menu-pill {
+    flex: unset; 
+    width: 100%; 
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (max-width: 575px) {
+  .grid-4 {
+    grid-template-columns: 1fr; 
+  }
+
+  .menu-inline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+
+  .menu-pill {
+    flex: unset;
+    width: 100%;
+  }
+
+  .btn-reserve {
+    width: 100%;
+  }
+}
+
+
+/* ==================================================
+   ******************TEAM SECTION*******************
+=================================================== */
+.team-heading {
+  text-align: center;
+}
+
+.team-member {
+  color: #B22222;
+  font-weight: 600;
+}
+
+
+.team-card {
+  text-align: center;
+  background-color: whitesmoke;
+  box-shadow: 0 4px 16px rgba(185, 16, 16, 0.4); 
+  border-radius: 12px; 
+  padding: 10px;       
+  transition: transform 0.2s ease, box-shadow 0.3s ease; 
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.6);
+}
+
+
+.team-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+
+
+/* =====================================================
+   ******************GLOBAL SECTIONS******************
+====================================================== */
+.section {
+  padding: 60px 20px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.section-title,
+.display-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e63946;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-title::after,
+.display-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #f4d35e;
+  margin: 8px auto 0;
+  border-radius: 4px;
+}
+
+.subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* =================================================
+   *********************FORMS***********************
+=================================================== */
+form {
+  display: grid;
+  gap: 16px;
+}
+
+form label {
+  font-weight: 600;
+  color: #333;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+/* ===================================================
+   ********************BUTTONS**********************
+=================================================== */
+.btn,
+.btn-reserve,
+.order-btn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.btn:hover,
+.btn-reserve:hover,
+.order-btn:hover {
+  background: #c72e3a;
+  transform: scale(1.05);
+}
+
+.btn.btn-red {
+  background: #e63946;
+}
+
+.btn.btn-red:hover {
+  background: #c72e3a;
+}
+
+.btn-yellow {
+  background: #f4d35e;
+  color: #e63946;
+}
+
+.btn-yellow:hover {
+  background: #e6b800;
+  color: #fff;
+}
+
+/* ==============================================================
+   ********************* RESERVATION SECTION *********************
+============================================================== */
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 1rem;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 1rem;
+}
+
+/* ================= Title & Text ================= */
+.reservation-text h2 {
+  font-size: 2rem;
+  color: #e63946; /* red */
+  margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.reservation-text h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ffd700;
+  margin: 8px auto 0;
+  border-radius: 4px;
+}
+
+.reservation-text p {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ================= Image ================= */
+.reservation-image img,
+.reservation-full img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  object-fit: cover;
+}
+
+.reservation-image img {
+  max-height: 420px;   /* ✅ Balanced for desktop */
+}
+
+.reservation-full img {
+  max-height: 500px;   /* ✅ Bigger full-width image */
+}
+
+/* ================= Form ================= */
+.reservation-form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.reservation-form {
+  background: whitesmoke;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(185, 16, 16, 0.4);
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  outline: none;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+  .col-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .reservation-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .reservation-text p {
+    font-size: 1rem;
+  }
+
+  .reservation-image img,
+  .reservation-full img {
+    max-height: 280px;
+  }
+}
+
+/* =======================================================
+   **********************ORDER SECTION*******************
+======================================================= */
+.order-section {
+  background: white;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.order-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #B22222;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.order-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #FFD700;
+  margin: 8px auto 0;
+  border-radius: 4px;
+}
+
+.order-container {
+  display: flex;
+  flex-wrap: nowrap; /* keep side-by-side on desktop */
+  gap: 30px;
+  max-width: 1000px;
+  width: 100%;
+  justify-content: center;
+  align-items: stretch;
+  margin: 0 auto;
+}
+
+.order-card {
+  background-color: whitesmoke;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgb(136, 26, 26);
+  padding: 30px 25px;
+  flex: 1 1 50%;
+  max-width: 50%;
+}
+
+.order-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.order-form label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+}
+
+.order-form .input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.order-form .input:focus {
+  border-color: #B22222;
+  outline: none;
+}
+
+.order-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #bb3333;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.order-btn:hover {
+  background-color: #a82f2f;
+}
+
+.order-image {
+  flex: 1 1 50%;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  object-fit: cover;
+}
+
+/* ===============================================================
+   ********************RESPONSIVE DESIGN*************************
+================================================================ */
+@media (max-width: 768px) {
+  .order-container {
+    flex-wrap: wrap;   /* allow stacking only on mobile */
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .order-card,
+  .order-image {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* ===================================================
+  ********************CONTACT SECTION****************
+==================================================== */
+
+#contact .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2-column on desktop */
+  gap: 30px;
+  align-items: stretch;
+}
+
+#contact form {
+  background: whitesmoke;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 16px rgb(155, 36, 36);
+}
+
+#contact iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#contactMsg {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  color: #065f46;
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  #contact .grid {
+    grid-template-columns: 1fr; /* stack on mobile */
+  }
+
+  #contact iframe {
+    min-height: 280px; /* shrink map a bit on small screens */
+  }
+}
+
+/* ===========================================
+  ******************** FOOTER ****************
+=========================================== */
+footer {
+  background: linear-gradient(90deg, #8b0000, #000);
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer .display-title {
+  color: #fff;
+}
+
+.social {
+  display: flex;
+  justify-content: center; /* stays centered on all devices */
+  gap: 14px;
+  margin-top: 10px;
+  flex-wrap: wrap; /* icons wrap if screen is too narrow */
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.icon-btn:hover {
+  background: var(--pd-red);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+
+  </style>
+</head>
+
+<body>
+
+
+    <!--============================ NAVBAR ======================================-->
+
+
+<nav class="navbar" aria-label="Primary">
+  <div class="container nav-wrap">
+    <div class="brand-title">🍕Pizza <span class="highlight">Stack</span></div>
+
+    <!------=-------- Navigation Links ------------------>
+
+    <div class="nav-links" id="nav">
+      <button class="close-side" id="closeMenuBtn" aria-label="Close menu">✖</button>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#menu">Menu</a>
+      <a href="#team">Team</a>
+      <a href="#order">Order</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="cart-wrapper" id="cartWrapper">
+      <button class="cart-btn" id="cartBtn" aria-label="Open Cart">🛒 Cart (<span id="cartCount">0</span>)</button>
+      <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+          <h3>Your Cart</h3>
+          <button class="close-cart" id="closeCartBtn" aria-label="Close Cart">✖</button>
+        </div>
+        <ul id="cartItems"></ul>
+        <p class="cart-total">Total: $<span id="cartTotal">0.00</span></p>
+        <button id="placeOrderBtn" class="btn btn-red">Place Order</button>
+        <p id="orderMessage" class="order-msg"></p>
+      </div>
+    </div>
+
+    <!------------ Burger Menu --------------->
+
+    <button class="burger" id="burger" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+  <!--==================================== HERO ===========================================-->
+
+  <header id="home" class="hero" role="banner">
+    <!-- Background video with fallback image -->
+    <video autoplay muted loop playsinline poster="images/Banner Pizza.jpg">
+      <source src="" type="video/mp4"/>
+      <!-- Fallback if video unsupported -->
+      <img src="images/Banner Pizza.jpg " alt="Pizza background">
+    </video>
+
+    <div class="hero-content container">
+      <h1><span class="white">Welcome to</span> <span class="red">Pizza</span> <span class="yellow">Stack</span></h1>
+      <p>Fresh, Hot & Delicious Pizza Delivered Fast</p>
+      <div class="btn-row">
+        <a class="btn btn-red" href="#order">Order Now</a>
+        <a class="btn btn-yellow" href="#reservation">Reservation</a>
+      </div>
+    </div>
+  </header>
+
+<!--============================== HIGHLIGHTS SECTION ===========================================--->
+
+<section class="highlights">
+  <div class="container">
+      <h2 class="about-title">Fresh, Fast & Full of Flavor</h2>
+    <div class="highlights-container">
+      
+      <!------ Fast Delivery ----->
+
+      <div class="highlight-card fade-in">
+        <div class="icon">🚚</div>
+          <h3 class="highlights-title">Fast Delivery</h3>
+          <p>Hungry and can’t wait? We make sure your pizza is delivered fresh and hot in just minutes. Fast, reliable, and always on time!</p>
+      </div>
+      
+      <!-- Premium Ingredients -->
+
+      <div class="highlight-card fade-in">
+        <div class="icon">🍕</div>
+          <h3 class="highlights-title">Premium Ingredients</h3>
+          <p>We use only the freshest and highest-quality ingredients to craft every bite. From farm-fresh vegetables to rich, gooey cheese, every slice is packed with flavor.</p>
+      </div>
+      
+      <!-- Loved by Customers -->
+
+      <div class="highlight-card fade-in">
+        <div class="icon">⭐</div>
+          <h3 class="highlights-title">Loved by Customers</h3>
+          <p>★★★★☆ Average 4.5/5 rating.<br>Our customers love us — and the ratings prove it! With countless 5-star reviews, Pizza Stack is trusted.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+ <!--============================ ABOUT US SECTION =========================================--->
+
+<section id="about" class="about-section">
+  <div class="container">
+    <!-------- Heading ------------->
+
+    <h2 class="about-title">About Us</h2>
+
+    <div class="about-content">
+      <!------------- Our Story ------------->
+
+      <div class="about-card">
+        <h3 class="sub-heading">Our Story</h3>
+        <p>
+          Since 1998, Pizza Stack has served hand-tossed pies crafted with
+          24-hour cold-fermented dough, vine-ripened tomato sauce, and premium
+          mozzarella. We blend tradition with a modern vibe — fast service
+          without compromising on quality.
+        </p>
+      </div>
+
+      <!------ Why We're Different ----------->
+      <div class="about-card">
+        <h3 class="sub-heading">Why We’re Different</h3>
+        <ul>
+          <li>🔥 Stone-oven baked for that perfect crispy-chewy bite</li>
+          <li>🥗 Locally sourced herbs and fresh veggies daily</li>
+          <li>🎉 Family bundles, student deals, and late-night combos</li>
+          <li>⭐ Rated 4.5/5 by over 10,000 happy customers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========================= MENU SECTION ======================================= -->
+
+<section id="menu" class="section" aria-labelledby="menu-title" style="background:whitesmoke">
+  <div class="container">
+    <h2 id="menu-title" class="display-title">Our Menu</h2>
+    <p class="subtitle">Pizzas, Burgers, Cold Drinks, Sandwiches & More</p>
+
+    <div class="grid grid-4">
+      <!---- Pizza ----->
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/margurate pizza.jpg" alt="Margherita Pizza">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">Margherita Pizza</h3>
+          <p class="price">$9.99</p>
+          <p>Classic Italian flavors with fresh mozzarella, tomatoes and fragrant basil leaves.</p>
+          <button class="btn btn-red add-to-cart" data-name="Margherita Pizza" data-price="9.99">Add to Cart</button>
+        </div>
+      </div>
+
+      <!------ Pepperoni ----->
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/pepper-pizza-.jpg" alt="Pepperoni Pizza">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">Pepperoni Pizza</h3>
+          <p class="price">$11.49</p>
+          <p>Cheesy delight topped with savory beef pepperoni, baked to golden perfection.</p>
+          <button class="btn btn-red add-to-cart" data-name="Pepperoni Pizza" data-price="11.49">Add to Cart</button>
+        </div>
+      </div>
+
+      <!----- Grilled Chicken Sandwich ------>
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/sand witches.jpg" alt="Grilled Chicken Sandwich">
+        </div>
+        <div class="card-body">
+         <h3 class="title-menu">Grilled Chicken Sandwich</h3>
+          <p class="price">$6.99</p>
+          <p>Juicy grilled chicken, lettuce, tomato, cheese, and creamy garlic mayo.</p>
+          <button class="btn btn-red add-to-cart" data-name="Veggie Burger" data-price="6.99">Add to Cart</button>
+        </div>
+      </div>
+
+      <!----- Cold Drink ------>
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/chilled cola.jpg" alt="Cold Drink">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">Chilled Cola</h3>
+          <p class="price">$2.49</p>
+          <p>Refreshing, ice-cold cola to pair perfectly with your pizza or burger meal.</p>
+          <button class="btn btn-red add-to-cart" data-name="Chilled Cola" data-price="2.49">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    
+      <div class="grid grid-4">
+      <!------ BBQ Chicken Pizza------>
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/BBQ chicken pizza.jpg" alt="BBQ Chicken Pizza">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">BBQ Chicken Pizza</h3>
+          <p class="price">$10.00</p>
+          <p>Smoky barbecue sauce with grilled chicken, onions, mozzarella, and fresh cilantro.</p>
+          <button class="btn btn-red add-to-cart" data-name="Margherita Pizza" data-price="10.00">Add to Cart</button>
+        </div>
+      </div>
+
+      <!----- Cheese Burst Burger------->
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/Cheese Burst Burger.jpg" alt="Cheese Burst Burger">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">Cheese Burst Burger</h3>
+          <p class="price">$8.39</p>
+          <p>Grilled patty stuffed with molten cheese, layered with lettuce and sauce.</p>
+          <button class="btn btn-red add-to-cart" data-name="Pepperoni Pizza" data-price="8.39">Add to Cart</button>
+        </div>
+      </div>
+
+      <!------- Garlic Breadsticks ------->
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/Garlic Breadsticks.jpg" alt="Garlic Breadsticks">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">Garlic Breadsticks</h3>
+          <p class="price">$7.00</p>
+          <p>Golden breadsticks brushed with garlic butter, served with marinara dip.</p>
+          <button class="btn btn-red add-to-cart" data-name="Veggie Burger" data-price="7.00">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- ----Mineral Water ------>
+      <div class="card menu-card">
+        <div class="img-box">
+          <img src="images/menu/water3.jpg" alt="Mineral Water">
+        </div>
+        <div class="card-body">
+          <h3 class="title-menu">Mineral Water</h3>
+          <p class="price">$2.50</p>
+          <p>Pure, chilled mineral water for hydration and a refreshing dining experience.</p>
+          <button class="btn btn-red add-to-cart" data-name="Chilled Cola" data-price="2.50">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TEAM SECTION ============================ -->
+
+
+<section id="team" class="section" aria-labelledby="team-title">
+  <div class="container">
+    <h2 id="team-title" class="display-title team-heading">Our Team<span class="underline"></span></h2>
+    <p class="subtitle">Meet the culinary experts behind Pizza Delight</p>
+
+    <div class="grid grid-4">
+      <div class="card team-card">
+        <img src="images/team/shef 1.jpg" alt="Chef Marco">
+        <div class="card-body">
+          <h3 class="team-member">Chef Marco</h3>
+          <p>Head of Kitchen with 10+ years of experience in authentic Italian cuisine.</p>
+        </div>
+      </div>
+
+      <div class="card team-card">
+        <img src="images/team/shef 2.jpg" alt="Chef Ayesha">
+        <div class="card-body">
+          <h3 class="team-member">Chef Leo</h3>
+          <p>Specialist in sauces & flavor balancing, with 6 years of professional cooking.</p>
+        </div>
+      </div>
+
+      <div class="card team-card">
+        <img src="images/team/shef 3.jpg" alt="Chef Daniel">
+        <div class="card-body">
+          <h3 class="team-member">Chef Daniel</h3>
+          <p>Wood-fired pizza oven expert and dough perfectionist with 8 years of experience.</p>
+        </div>
+      </div>
+
+      <div class="card team-card">
+        <img src="images/team/shef 4.jpg" alt="Chef Maria">
+        <div class="card-body">
+          <h3 class="team-member">Chef John</h3>
+          <p>Expert in Italian sauces & pasta making, with 4+ years in gourmet kitchens.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--============================ RESERVATION SECTION ============================-->
+
+
+<section id="reservation" class="section">
+  <div class="container">
+    <h2 class="display-title">Reserve a Table</h2>
+
+    <!-------- Row 1: Text + Image ---------->
+    <div class="row reservation-top">
+      <div class="col-6 reservation-text">
+        <p class="subtitle">“At Pizza Stack, your comfort matters to us. With our simple table reservation service, you can book ahead of time and avoid the wait. Whether it’s a casual dinner, a family gathering, or a special celebration, we’ll make sure your table is ready when you arrive.”</p>
+      </div>
+
+      <div class="col-6 reservation-image">
+        <img src="images/table/table reservation.jpg" alt="Restaurant tables">
+      </div>
+    </div>
+
+    <!----------- Row 2: Reservation Form -------------->
+    <div class="row reservation-form-wrapper">
+      <div class="col-12">
+        <form id="reserveForm" class="reservation-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+              <label for="date">Reservation Date</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="seats">Number of Guests</label>
+              <input type="number" id="seats" name="seats" min="1" required>
+            </div>
+            <div class="form-group">
+              <label for="tables">Number of Tables</label>
+              <input type="number" id="tables" name="tables" min="1" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Select Menu</label>
+              <div class="menu-inline">
+                <label class="menu-pill">Pizza <input type="checkbox" name="menu" value="Pizza"></label>
+                <label class="menu-pill">Burger <input type="checkbox" name="menu" value="Burger"></label>
+                <label class="menu-pill">Sandwich <input type="checkbox" name="menu" value="Sandwich"></label>
+                <label class="menu-pill">Cold Drinks <input type="checkbox" name="menu" value="Cold Drinks"></label>
+              </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label for="time">Reservation Time</label>
+              <input type="time" id="time" name="time" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-reserve">Reserve Now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--=================== ORDER SECTION ===========================-->
+<section id="order" class="order-section">
+  <div class="container">
+    <!-- Title centered at the top -->
+    <h2 class="order-title">Place Your Order</h2>
+
+    <div class="order-container">
+      <!-- Left: Order Form -->
+      <div class="order-card">
+        <form id="orderForm" class="order-form">
+          <div class="form-group">
+            <label for="product">Select Product:</label>
+            <select id="product" class="input" required>
+              <option value="">-- Choose Item --</option>
+              <option value="Margherita Pizza">Margherita Pizza</option>
+              <option value="Pepperoni Pizza">Pepperoni Pizza</option>
+              <option value="Grilled Chicken Sandwich">Grilled Chicken Sandwich</option>
+              <option value="BBQ Chicken Pizza">BBQ Chicken Pizza</option>
+              <option value="Cheese Burst Burger">Cheese Burst Burger</option>
+              <option value="Garlic Breadsticks">Garlic Breadsticks</option>
+              <option value="Cold Drink">Cold Drink</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quantity">Number of Items:</label>
+            <input type="number" id="quantity" class="input" min="1" max="20" required>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Delivery Location:</label>
+            <input type="text" id="location" class="input" placeholder="Enter your address" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Contact Number:</label>
+            <input type="tel" id="phone" class="input" placeholder="+1 234 567 890" required>
+          </div>
+
+          <button type="submit" class="order-btn">Place Order</button>
+        </form>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="order-image">
+        <img src="images/order/Order 1.jpg" alt="Chef Image">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!--========================= CONTACT================================ -->
+
+
+<section id="contact" class="section" style="background:white" aria-labelledby="contact-title">
+  <h2 id="contact-title" class="display-title" style="margin-top:0">Contact Us</h2>
+    <div class="container grid grid-2">
+      <div class="fade-in">
+        <form id="contactForm" novalidate>
+          <div style="display:grid;gap:12px">
+            <input class="input" type="text" name="name" placeholder="Name" required aria-label="Name">
+            <input class="input" type="email" name="email" placeholder="Email" required aria-label="Email">
+            <input class="input" type="tel" name="phone" placeholder="Phone" pattern="[0-9+()\\-\\s]{6,}" aria-label="Phone">
+            <textarea class="input" name="message" rows="4" placeholder="Message" required aria-label="Message"></textarea>
+            <button class="btn btn-red" type="submit">Send Message</button>
+          </div>
+        </form>
+        <p id="contactMsg" style="display:none;margin-top:10px;background:#ecfdf5;border:1px solid #bbf7d0;color:#065f46;padding:12px;border-radius:12px">Thanks! We’ll get back to you shortly.</p>
+      </div>
+
+      <div class="fade-in">
+        <div style="position:relative;overflow:hidden;width:100%;padding-top:56.25%;border-radius:16px;box-shadow:var(--shadow)">
+          <iframe title="Restaurant Location" src="https://www.google.com/maps?q=Pizza&output=embed"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div style="margin-top:12px;color:var(--pd-muted)">
+          <div><strong>Phone:</strong> +92 300 0000000</div>
+          <div><strong>Email:</strong> hello@PizzaStack.com</div>
+          <div><strong>Address:</strong> Main Street, Your City</div>
+        </div>
+       </div>
+      </div>
+    </div>
+  </section>
+
+  <!--====================== FOOTER =============================-->
+
+
+  <footer role="contentinfo">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div>
+        <div class="display-title" style="font-size:1.2rem">🍕Pizza <span style="color:yellow">Stack</span></div>
+        <small>© <span id="year"></span> Pizza Stack. All rights reserved.</small>
+      </div>
+      <small style="color:#aaa; font-size:0.75rem;">
+        ⚠️ Disclaimer: This is a demo template project. All names, images, and content are placeholders only.
+      </small>
+
+      <div class="social">
+        <a class="icon-btn facebook" href="http:facebook.com" aria-label="Facebook" title="Facebook">
+          <!------------- Facebook SVG ------------------>
+          <svg width="18" height="18" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M279.1 288l14.2-92.7h-88.9v-60.1c0-25.4 12.4-50.2 52.2-50.2h40.4V6.3S268.4 0 225.4 0c-73.2 0-121 44.4-121 124.7v70.6H22.9V288h81.5v224h100.2V288z"/></svg>
+        </a>
+        <a class="icon-btn whatsapp" href="http:whatsapp.com" aria-label="WhatsApp" title="WhatsApp">
+          <!----------------- WhatsApp SVG ------------------->
+          <svg width="18" height="18" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M380.9 97.1C339-3.5 228.1-33.8 137.6 16.2 64.8 56.4 22.3 134.8 34.3 214.3L0 352l142.2-37.2c73.8 39.2 165.3 21.4 221.6-42.7 62.8-70.8 59.8-174.4 17.1-175zM224 338.6c-26.3 0-52.1-7-74.7-20.3l-5.3-3.2-84.3 22.1 22.5-82.3-3.5-5.4c-36.8-57.2-19.5-132.7 38.2-169.6 57.7-36.9 133.6-19.6 170.3 38.3 36.7 57.8 19.5 132.7-38.2 169.6-20.2 12.9-43.2 20.8-66.5 20.8z"/></svg>
+        </a>
+        <a class="icon-btn instagram" href="http:instagram.com" aria-label="Instagram" title="Instagram">
+          <!-------------------- Instagram SVG --------------------->
+          <svg width="18" height="18" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm146.4-41c0 14.9-12.1 27-27 27-14.9 0-27-12.1-27-27s12.1-27 27-27 27 12.1 27 27zM398.8 80c-1.7-35.3-9.9-66.7-36.1-92.9C336.5-38.5 305.1-46.7 269.8-48.4 233.9-50.2 214 48.7 214 48.7h20.6c10.7-1.8 21.9-2.7 33.5-2.7 64.4 0 116.8 52.4 116.8 116.8 0 11.6-.9 22.8-2.7 33.5V398.8c0 45.1-36.6 81.6-81.6 81.6H133.2c-45.1 0-81.6-36.6-81.6-81.6V133.2c0-45.1 36.6-81.6 81.6-81.6h186.9c16.1 0 30.7 5.8 42.2 15.4z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+
+/* =========================Java Script Part ===============================
+   ***************************NAVBAR MOBILE MENU***************************
+========================================================================== */
+
+
+const burger = document.getElementById("burger");
+const nav = document.getElementById("nav");
+const closeBtn = document.getElementById("closeMenuBtn");
+
+      function closeMenu() {
+        nav.classList.remove("active");
+        burger.classList.remove("open");
+        burger.setAttribute("aria-expanded", "false");
+      }
+
+
+      burger?.addEventListener("click", () => {
+        nav.classList.toggle("active");
+        burger.classList.toggle("open");
+        burger.setAttribute("aria-expanded", nav.classList.contains("active"));
+      });
+
+      // Close with ✖ button
+      closeBtn?.addEventListener("click", closeMenu);
+
+      // Close when clicking a nav link
+      document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+          closeMenu();
+          document.querySelector(link.getAttribute("href"))
+            ?.scrollIntoView({ behavior: "smooth" }); // Smooth scroll
+        });
+      });
+
+        // Close on ESC key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && nav.classList.contains("active")) {
+            closeMenu();
+          }
+      });
+
+
+/* ===========================================================
+   ******************CART FUNCTIONALITY**********************
+=============================================================== */
+const cartBtn = document.getElementById("cartBtn");
+const cartDropdown = document.getElementById("cartDropdown");
+const closeCartBtn = document.getElementById("closeCartBtn");
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
+const placeOrderBtn = document.getElementById("placeOrderBtn");
+const orderMessage = document.getElementById("orderMessage");
+
+let cart = [];
+
+
+cartBtn?.addEventListener("click", () => {
+  cartDropdown.classList.toggle("active");
+});
+
+closeCartBtn?.addEventListener("click", () => {
+  cartDropdown.classList.remove("active");
+});
+
+// Add to Cart
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+    const name = button.dataset.name;
+    const price = parseFloat(button.dataset.price);
+
+    cart.push({ name, price });
+    updateCart();
+  });
+});
+
+// Update Cart
+function updateCart() {
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price;
+    const li = document.createElement("li");
+    li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+    cartItems.appendChild(li);
+  });
+
+  cartCount.textContent = cart.length;
+  cartTotal.textContent = total.toFixed(2);
+}
+
+// Place Order
+placeOrderBtn?.addEventListener("click", () => {
+  if (cart.length === 0) {
+    orderMessage.textContent = "Your cart is empty!";
+    orderMessage.style.color = "red";
+  } else {
+    orderMessage.textContent = "✅ Order placed successfully!";
+    orderMessage.style.color = "green";
+    cart = [];
+    updateCart();
+  }
+});
+
+
+/* ===========================================================================
+   ****************RESERVATION FORM ******************************************
+============================================================================== */
+const reserveForm = document.getElementById("reserveForm");
+
+if (reserveForm) {
+  reserveForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const fullname = document.getElementById("fullname").value;
+    const date = document.getElementById("date").value;
+    const seats = document.getElementById("seats").value;
+    const tables = document.getElementById("tables").value;
+    const time = document.getElementById("time").value;
+
+    // Collect checked menu items
+    const menu = Array.from(document.querySelectorAll("input[name='menu']:checked"))
+                      .map(opt => opt.value);
+
+    if (menu.length === 0) {
+      alert("⚠️ Please select at least one menu item.");
+      return;
+    }
+
+    alert(`✅ Your table has been reserved!\n\n
+              Name: ${fullname}\n
+              Date: ${date} at ${time}\n
+              Guests: ${seats}, Tables: ${tables}\n
+              Menu: ${menu.join(", ")}`);
+    reserveForm.reset();
+  });
+}
+/* ==============================================================================
+ *******************************Order section*******************************
+================================================================================ */
+
+       
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("orderForm");
+    
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // Prevent default form submission
+      
+      // Get form values
+      const product = document.getElementById("product").value;
+      const quantity = document.getElementById("quantity").value;
+      const location = document.getElementById("location").value;
+      const phone = document.getElementById("phone").value;
+      
+      // Check if all fields are filled
+      if (!product || !quantity || !location || !phone) {
+        alert("Please fill all fields before placing your order.");
+        return;
+      }
+      
+      // Generate message
+      const message = `
+        Thank you! Your order of ${quantity} ${product} will be delivered to ${location}.
+        We will contact you at ${phone}. Your order will arrive soon!..
+      `;
+      
+      // Display the message
+      let orderMessage = document.querySelector(".order-message");
+      if (!orderMessage) {
+        orderMessage = document.createElement("div");
+        orderMessage.className = "order-message";
+        form.parentElement.appendChild(orderMessage);
+      }
+      orderMessage.innerText = message;
+      orderMessage.style.color = "green";
+      orderMessage.style.fontWeight = "600";
+      orderMessage.style.marginTop = "15px";
+      form.reset();
+    });
+  });
+
+
+
+
+/* ==============================================================
+   **********************CONTACT FORM**************************
+================================================================*/
+const contactForm = document.getElementById("contactForm");
+const contactMsg = document.getElementById("contactMsg");
+
+contactForm?.addEventListener("submit", e => {
+  e.preventDefault();
+  contactMsg.style.display = "block";
+  contactForm.reset();
+});
+
+
+/* ===================================================================
+   *************************FADE-IN ON SCROLL************************
+=================================================================== */
+const faders = document.querySelectorAll(".fade-in");
+
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("visible");
+    observer.unobserve(entry.target);
+  });
+}, { threshold: 0.2 });
+
+faders.forEach(fader => appearOnScroll.observe(fader));
+
+
+/* =======================================================================
+   *******************************FOOTER YEAR****************************
+========================================================================= */
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
